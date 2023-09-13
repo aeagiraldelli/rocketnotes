@@ -10,8 +10,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
     color: ${({ theme }) => theme.COLORS.WHITE};
-    margin: 20px;
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -32,6 +30,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   button:hover, a:hover {
-    filter: brightness(0.9);
+    filter: brightness(0.8);
   }
 `;
