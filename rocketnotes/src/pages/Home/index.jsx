@@ -3,6 +3,8 @@ import { Container, Brand, Menu, Search, Content, NewNote } from './style';
 import { Header } from '../../components/Header';
 import { ButtonText } from '../../components/ButtonText';
 import { Input } from '../../components/Input';
+import { Section } from '../../components/Section';
+import { Note } from '../../components/Note';
 
 export function Home() {
   return (
@@ -21,7 +23,55 @@ export function Home() {
       <Search>
         <Input icon={FiSearch} placeholder="Pesquisar pelo título" />
       </Search>
-      <Content></Content>
+      <Content>
+        <Section title="Minhas notas">
+          <Note
+            data={{
+              title: 'React',
+              tags: [
+                { id: 1, name: 'react' },
+                { id: 2, name: 'front end' },
+              ],
+            }}
+          />
+          <Note
+            data={{
+              title: 'React',
+              tags: [
+                { id: 1, name: 'react' },
+                { id: 2, name: 'front end' },
+              ],
+            }}
+          />
+          <Note
+            data={{
+              title: 'React',
+              tags: [
+                { id: 1, name: 'react' },
+                { id: 2, name: 'front end' },
+              ],
+            }}
+          />
+          <Note
+            data={{
+              title: 'React',
+              tags: [
+                { id: 1, name: 'react' },
+                { id: 2, name: 'front end' },
+              ],
+            }}
+          />
+          <Note
+            data={{
+              title: 'React',
+              tags: [
+                { id: 1, name: 'react' },
+                { id: 2, name: 'front end' },
+              ],
+            }}
+          />
+        </Section>
+      </Content>
       <NewNote type="button">
         <FiPlus />
         Criar nota

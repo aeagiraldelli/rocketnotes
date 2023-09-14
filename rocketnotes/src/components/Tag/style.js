@@ -4,7 +4,6 @@ export const Container = styled.span`
   font-size: 12px;
   padding: 5px 14px;
   border-radius: 4px;
-  margin-left: 6px;
   color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   background-color: ${({ theme }) => theme.COLORS.ORANGE};
 `;
