@@ -6,7 +6,6 @@ export const Container = styled.div`
 
   display: flex;
   align-items: center;
-  gap: 16px;
 
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   color: ${({ theme }) => theme.COLORS.GRAY_300};
@@ -16,7 +15,7 @@ export const Container = styled.div`
     height: 56px;
     width: 100%;
 
-    padding: 12px;
+    padding: 16px;
 
     color: ${({ theme }) => theme.COLORS.WHITE};
     background: transparent;
@@ -25,5 +24,9 @@ export const Container = styled.div`
     &::placeholder {
       color: ${({ theme }) => theme.COLORS.GRAY_300};
     }
+  }
+
+  svg {
+    margin-left: 16px;
   }
 `;
