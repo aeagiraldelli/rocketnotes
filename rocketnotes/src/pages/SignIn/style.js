@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import bgImg from '../../assets/background.png';
 
 export const Container = styled.div`
   height: 100vh;
@@ -34,4 +35,11 @@ export const Form = styled.form`
   .button-text {
     margin-top: 30px;
   }
+`;
+
+export const Background = styled.div`
+  flex: 1;
+  background: url(${bgImg}) no-repeat center;
+  background-size: cover;
+  opacity: 0.5;
 `;
