@@ -34,42 +34,6 @@ export function Home() {
               ],
             }}
           />
-          <Note
-            data={{
-              title: 'React',
-              tags: [
-                { id: 1, name: 'react' },
-                { id: 2, name: 'front end' },
-              ],
-            }}
-          />
-          <Note
-            data={{
-              title: 'React',
-              tags: [
-                { id: 1, name: 'react' },
-                { id: 2, name: 'front end' },
-              ],
-            }}
-          />
-          <Note
-            data={{
-              title: 'React',
-              tags: [
-                { id: 1, name: 'react' },
-                { id: 2, name: 'front end' },
-              ],
-            }}
-          />
-          <Note
-            data={{
-              title: 'React',
-              tags: [
-                { id: 1, name: 'react' },
-                { id: 2, name: 'front end' },
-              ],
-            }}
-          />
         </Section>
       </Content>
       <NewNote type="button">
