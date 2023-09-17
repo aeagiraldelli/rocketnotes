@@ -36,7 +36,7 @@ export function Home() {
           />
         </Section>
       </Content>
-      <NewNote type="button">
+      <NewNote to="/new">
         <FiPlus />
         Criar nota
       </NewNote>

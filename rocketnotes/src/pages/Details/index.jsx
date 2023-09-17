@@ -45,10 +45,12 @@ export function Details() {
             </Links>
           </Section>
           <Section title="Marcadores">
-            <Tag title="Nodejs" />
-            <Tag title="ExpressJS" />
-            <Tag title="Javascript" />
-            <Tag title="ReactJS" />
+            <div className="tag-list">
+              <Tag title="Nodejs" />
+              <Tag title="ExpressJS" />
+              <Tag title="Javascript" />
+              <Tag title="ReactJS" />
+            </div>
           </Section>
           <Button label="Voltar" />
         </Content>

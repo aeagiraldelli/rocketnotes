@@ -15,6 +15,12 @@ export const Container = styled.div`
     overflow-y: scroll;
     padding: 64px 0;
   }
+
+  .tag-list {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
 `;
 
 export const Links = styled.ul`
