@@ -12,8 +12,7 @@ export function AuthProvider({ children }) {
       const response = await api.post('/session', { email, password });
       const { user, token } = response.data;
 
-      api.defaults.headers.authorization = `Bearer ${token}`;
-
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setData({ user, token });
 
       localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
@@ -40,7 +39,8 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem("@rocketnotes:token");
 
     if (token && user) {
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
       setData({
         token,
         user: JSON.parse(user),
