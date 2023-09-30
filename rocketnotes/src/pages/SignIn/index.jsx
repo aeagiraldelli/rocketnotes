@@ -26,13 +26,7 @@ export function SignIn() {
         <p>Aplicação para gerenciar seus links.</p>
         <h2>Faça seu login</h2>
         <Input placeholder="e-mail" type="email" icon={FiMail} onChange={(e) => setEmail(e.target.value)} />
-        <Input
-          placeholder="senha"
-          type="password"
-          invertReveal
-          icon={FiLock}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <Input placeholder="senha" type="password" invertReveal icon={FiLock} onChange={(e) => setPassword(e.target.value)} />
         <Button label="Login" onClick={handleSignIn} />
         <span className="button-text">
           <Link to="/signup">

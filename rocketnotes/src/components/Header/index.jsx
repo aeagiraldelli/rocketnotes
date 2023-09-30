@@ -1,7 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import { RiShutDownLine } from 'react-icons/ri';
+
+import { useAuth } from '../../hooks/auth';
+
 import { Container, Profile, Logout } from './style';
 
 export function Header() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleClick() {
+    logout();
+    navigate('/');
+  }
+
   return (
     <Container>
       <Profile to="/profile">
@@ -15,7 +27,7 @@ export function Header() {
         </div>
       </Profile>
 
-      <Logout>
+      <Logout onClick={handleClick}>
         <RiShutDownLine />
       </Logout>
     </Container>
