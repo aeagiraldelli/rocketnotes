@@ -15,9 +15,8 @@ export function AuthProvider({ children }) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setData({ user, token });
 
-      localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
-      localStorage.setItem("@rocketnotes:token", token);
-
+      localStorage.setItem('@rocketnotes:user', JSON.stringify(user));
+      localStorage.setItem('@rocketnotes:token', token);
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
@@ -28,15 +27,38 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    localStorage.removeItem("@rocketnotes:user");
-    localStorage.removeItem("@rocketnotes:token");
+    localStorage.removeItem('@rocketnotes:user');
+    localStorage.removeItem('@rocketnotes:token');
 
     setData({});
   }
 
+  async function updateProfile({ user, avatarFile }) {
+    try {
+      if (avatarFile) {
+        const fileUploadForm = new FormData();
+        fileUploadForm.append('avatar', avatarFile);
+
+        const response = await api.patch('/users/avatar', fileUploadForm);
+        user.avatar = response.data.avatar;
+      }
+
+      const response = await api.put('/users', user);
+      localStorage.setItem('@rocketnotes:user', JSON.stringify(response.data.user));
+      setData({ user: response.data.user, token: (prevState) => prevState.token });
+      return alert('Dados do perfil atualizados com sucesso.');
+    } catch (error) {
+      if (error.response) {
+        return alert(error.response.data.message);
+      } else {
+        return alert('Não foi possível atualizar os dados do usuário. Tente mais tarde.');
+      }
+    }
+  }
+
   useEffect(() => {
-    const user = localStorage.getItem("@rocketnotes:user");
-    const token = localStorage.getItem("@rocketnotes:token");
+    const user = localStorage.getItem('@rocketnotes:user');
+    const token = localStorage.getItem('@rocketnotes:token');
 
     if (token && user) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -48,11 +70,7 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ signIn, logout, user: data.user }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ signIn, logout, updateProfile, user: data.user }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
