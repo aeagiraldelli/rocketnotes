@@ -14,6 +14,18 @@ export function New() {
   const [links, setLinks] = useState([]);
   const [newLink, setNewLink] = useState('');
 
+  const [tags, setTags] = useState([]);
+  const [newTag, setNewTag] = useState('');
+
+  function handleAddTag() {
+    setTags((prevState) => [...prevState, newTag]);
+    setNewTag('');
+  }
+
+  function handleRemoveTag(tagToRemove) {
+    setTags((prevState) => prevState.filter((tag) => tag !== tagToRemove));
+  }
+
   function handleAddLink() {
     setLinks((prevState) => [...prevState, newLink]);
     setNewLink('');
@@ -51,10 +63,20 @@ export function New() {
           </Section>
           <Section title="Marcadores">
             <div className="tag-list">
-              <NoteItem className="tag__item" value="react" />
-              <NoteItem className="tag__item" value="front end" />
-              <NoteItem className="tag__item" value="front end" />
-              <NoteItem className="tag__item" isNew placeholder="nova tag" />
+              {
+                tags.map((tag, index) => {
+                  return <NoteItem
+                    key={`${index}-${tag}`}
+                    className="tag__item"
+                    value={tag}
+                    onClick={() => handleRemoveTag(tag)}
+                  />
+                })
+              }
+              <NoteItem className="tag__item" isNew placeholder="nova tag" value={newTag}
+                onChange={(e) => setNewTag(e.target.value)}
+                onClick={handleAddTag}
+              />
             </div>
           </Section>
           <Button label="Salvar" />

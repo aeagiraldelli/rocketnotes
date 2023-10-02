@@ -19,7 +19,6 @@ export const Container = styled.div`
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    justify-content: space-between;
   }
 
   .tag__item {
