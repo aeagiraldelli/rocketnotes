@@ -70,7 +70,11 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  return <AuthContext.Provider value={{ signIn, logout, updateProfile, user: data.user }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ signIn, logout, updateProfile, user: data.user }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {

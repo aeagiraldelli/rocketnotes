@@ -33,7 +33,9 @@ export function SignUp() {
         if (error.response) {
           alert(error.response.data.message);
         } else {
-          alert('Não foi possível realizar o cadastro. Tente novamente mais tarde.');
+          alert(
+            'Não foi possível realizar o cadastro. Tente novamente mais tarde.'
+          );
         }
       });
   }
@@ -45,8 +47,18 @@ export function SignUp() {
         <h1>Rocket Notes</h1>
         <p>Aplicação para gerenciar seus links.</p>
         <h2>Crie sua conta</h2>
-        <Input placeholder="Nome" type="text" icon={FiUser} onChange={(e) => setName(e.target.value)} />
-        <Input placeholder="e-mail" type="email" icon={FiMail} onChange={(e) => setEmail(e.target.value)} />
+        <Input
+          placeholder="Nome"
+          type="text"
+          icon={FiUser}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          placeholder="e-mail"
+          type="email"
+          icon={FiMail}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <Input
           placeholder="senha"
           type="password"

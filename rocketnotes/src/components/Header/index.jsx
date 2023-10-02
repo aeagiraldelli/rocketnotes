@@ -23,7 +23,7 @@ export function Header() {
   return (
     <Container>
       <Profile to="/profile">
-        <img src={avatarAddress} alt="Foto do usuário." />
+        <img src={avatarAddress} alt={`Imagem do usuário ${user.name}`} />
         <div>
           <span>Olá,</span>
           <strong>{user.name}</strong>
