@@ -42,9 +42,29 @@ export function New() {
     setLinks((prevState) => prevState.filter((link) => link !== linkToRemove));
   }
 
+  function linkInputFocusLost() {
+    if (newLink) {
+      handleAddLink();
+    }
+  }
+
+  function tagInputLostFocus() {
+    if (newTag) {
+      handleAddTag();
+    }
+  }
+
   async function handleSaveNote() {
     if (!title || !description) {
       return alert('Por favor, preencha os campos Título e Observações.');
+    }
+
+    if (newTag) {
+      handleAddTag();
+    }
+
+    if (newLink) {
+      handleAddLink();
     }
 
     try {
@@ -82,7 +102,7 @@ export function New() {
                 return <NoteItem key={`${index}-${link}`} value={link} onClick={() => handleRemoveLink(link)} />
               })
             }
-            <NoteItem isNew placeholder="novo link" value={newLink} onChange={(e) => setNewLink(e.target.value)} onClick={handleAddLink} />
+            <NoteItem isNew placeholder="novo link" value={newLink} onBlur={() => linkInputFocusLost()} onChange={(e) => setNewLink(e.target.value)} onClick={handleAddLink} />
           </Section>
           <Section title="Marcadores">
             <div className="tag-list">
@@ -91,7 +111,7 @@ export function New() {
                   return <NoteItem key={`${index}-${tag}`} className="tag__item" value={tag} onClick={() => handleRemoveTag(tag)} />
                 })
               }
-              <NoteItem className="tag__item" isNew placeholder="nova tag" value={newTag} onChange={(e) => setNewTag(e.target.value)} onClick={handleAddTag} />
+              <NoteItem className="tag__item" isNew placeholder="nova tag" value={newTag} onBlur={() => tagInputLostFocus()} onChange={(e) => setNewTag(e.target.value)} onClick={handleAddTag} />
             </div>
           </Section>
           <Button label="Salvar" onClick={handleSaveNote} />
