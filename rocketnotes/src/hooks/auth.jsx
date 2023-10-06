@@ -2,6 +2,9 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 import { api } from '../services/api';
 
+const LOCAL_KEY_USER = '@rocketnotes:user';
+const LOCAL_KEY_TOKEN = '@rocketnotes:token';
+
 const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
@@ -15,8 +18,8 @@ export function AuthProvider({ children }) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setData({ user, token });
 
-      localStorage.setItem('@rocketnotes:user', JSON.stringify(user));
-      localStorage.setItem('@rocketnotes:token', token);
+      localStorage.setItem(LOCAL_KEY_USER, JSON.stringify(user));
+      localStorage.setItem(LOCAL_KEY_TOKEN, token);
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
@@ -27,8 +30,8 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    localStorage.removeItem('@rocketnotes:user');
-    localStorage.removeItem('@rocketnotes:token');
+    localStorage.removeItem(LOCAL_KEY_USER);
+    localStorage.removeItem(LOCAL_KEY_TOKEN);
 
     setData({});
   }
@@ -44,7 +47,7 @@ export function AuthProvider({ children }) {
       }
 
       const response = await api.put('/users', user);
-      localStorage.setItem('@rocketnotes:user', JSON.stringify(response.data.user));
+      localStorage.setItem(LOCAL_KEY_USER, JSON.stringify(response.data.user));
       setData({ user: response.data.user, token: (prevState) => prevState.token });
       return alert('Dados do perfil atualizados com sucesso.');
     } catch (error) {
@@ -57,8 +60,8 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const user = localStorage.getItem('@rocketnotes:user');
-    const token = localStorage.getItem('@rocketnotes:token');
+    const user = localStorage.getItem(LOCAL_KEY_USER);
+    const token = localStorage.getItem(LOCAL_KEY_TOKEN);
 
     if (token && user) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
