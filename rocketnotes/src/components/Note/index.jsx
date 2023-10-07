@@ -1,5 +1,8 @@
-import { Container } from './style';
+import { useNavigate } from 'react-router-dom';
+
 import { Tag } from '../Tag';
+
+import { Container } from './style';
 
 export function Note({ data, ...rest }) {
   return (
