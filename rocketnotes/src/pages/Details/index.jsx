@@ -1,3 +1,14 @@
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { api } from '../../services/api';
+
+import { Header } from '../../components/Header';
+import { Section } from '../../components/Section';
+import { Tag } from '../../components/Tag';
+import { ButtonText } from '../../components/ButtonText';
+import { Button } from '../../components/Button';
+
 import {
   ButtonDeleteNote,
   Container,
@@ -6,55 +17,74 @@ import {
   Title,
   TextContent,
 } from './style';
-import { Header } from '../../components/Header';
-import { Section } from '../../components/Section';
-import { Tag } from '../../components/Tag';
-import { ButtonText } from '../../components/ButtonText';
-import { Button } from '../../components/Button';
 
 export function Details() {
+  const [data, setData] = useState({});
+  const params = useParams();
+  const navigate = useNavigate();
+
+  async function handleDeleteNote() {
+    const confirm = window.confirm(
+      'Tem certeza que deseja excluir essa nota? Essa ação não poderá ser desfeita.'
+    );
+
+    if (confirm) {
+      const response = await api.delete(`/notes/${params.id}`);
+      navigate(-1);
+    }
+  }
+
+  useEffect(() => {
+    async function fetchNote() {
+      const response = await api.get(`/notes/${params.id}`);
+      if (response.data) {
+        setData(response.data);
+      }
+    }
+
+    fetchNote();
+  }, []);
+
   return (
     <Container>
       <Header />
-      <main>
-        <Content>
-          <ButtonDeleteNote>
-            <ButtonText title="Excluir nota" />
-          </ButtonDeleteNote>
+      {data && (
+        <main>
+          <Content>
+            <ButtonDeleteNote>
+              <ButtonText title="Excluir nota" onClick={handleDeleteNote} />
+            </ButtonDeleteNote>
 
-          <Title>Introdução ao React</Title>
+            <Title>{data.title}</Title>
 
-          <TextContent>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias,
-            illum non quod excepturi voluptatum atque cupiditate provident,
-            ratione unde, quisquam sunt eveniet laboriosam quo est sapiente
-            minus! Maiores, corporis non!
-          </TextContent>
+            <TextContent>{data.description}</TextContent>
+            {data.links && (
+              <Section title="Links úteis">
+                <Links>
+                  {data.links.map((link) => (
+                    <li key={String(link.id)}>
+                      <a href={`${link.url}`} target="_blank">
+                        {link.url}
+                      </a>
+                    </li>
+                  ))}
+                </Links>
+              </Section>
+            )}
 
-          <Section title="Links úteis">
-            <Links>
-              <li>
-                <a href="#">Link 1</a>
-              </li>
-              <li>
-                <a href="#">Link 2</a>
-              </li>
-              <li>
-                <a href="#">Link 3</a>
-              </li>
-            </Links>
-          </Section>
-          <Section title="Marcadores">
-            <div className="tag-list">
-              <Tag title="Nodejs" />
-              <Tag title="ExpressJS" />
-              <Tag title="Javascript" />
-              <Tag title="ReactJS" />
-            </div>
-          </Section>
-          <Button label="Voltar" />
-        </Content>
-      </main>
+            {data.tags && (
+              <Section title="Marcadores">
+                <div className="tag-list">
+                  {data.tags.map((tag) => (
+                    <Tag key={String(tag.id)} title={`${tag.name}`} />
+                  ))}
+                </div>
+              </Section>
+            )}
+            <Button label="Voltar" onClick={() => navigate(-1)} />
+          </Content>
+        </main>
+      )}
     </Container>
   );
 }

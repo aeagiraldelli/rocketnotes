@@ -22,7 +22,7 @@ export function New() {
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState('');
 
-  const navitage = useNavigate();
+  const navigate = useNavigate();
 
   function handleAddTag() {
     setTags((prevState) => [...prevState, newTag]);
@@ -72,10 +72,10 @@ export function New() {
         title,
         description,
         links,
-        tags
+        tags,
       });
       alert('Nota salva com sucesso!');
-      navitage('/');
+      navigate(-1);
     } catch (error) {
       if (error.response) {
         return alert(error.response.data.message);
@@ -92,26 +92,56 @@ export function New() {
         <Form>
           <header>
             <h1>Criar nota</h1>
-            <Link to="/">voltar</Link>
+            <Link onClick={() => navigate(-1)}>voltar</Link>
           </header>
-          <Input placeholder="Título" onChange={(e) => setTitle(e.target.value)} />
-          <TextArea placeholder="Observações" onChange={(e) => setDescription(e.target.value)} />
+          <Input
+            placeholder="Título"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <TextArea
+            placeholder="Observações"
+            onChange={(e) => setDescription(e.target.value)}
+          />
           <Section title="Links úteis">
-            {
-              links.map((link, index) => {
-                return <NoteItem key={`${index}-${link}`} value={link} onClick={() => handleRemoveLink(link)} />
-              })
-            }
-            <NoteItem isNew placeholder="novo link" value={newLink} onBlur={() => linkInputFocusLost()} onChange={(e) => setNewLink(e.target.value)} onClick={handleAddLink} />
+            {links.map((link, index) => {
+              return (
+                <NoteItem
+                  key={`${index}-${link}`}
+                  value={link}
+                  onClick={() => handleRemoveLink(link)}
+                />
+              );
+            })}
+            <NoteItem
+              isNew
+              placeholder="novo link"
+              value={newLink}
+              onBlur={() => linkInputFocusLost()}
+              onChange={(e) => setNewLink(e.target.value)}
+              onClick={handleAddLink}
+            />
           </Section>
           <Section title="Marcadores">
             <div className="tag-list">
-              {
-                tags.map((tag, index) => {
-                  return <NoteItem key={`${index}-${tag}`} className="tag__item" value={tag} onClick={() => handleRemoveTag(tag)} />
-                })
-              }
-              <NoteItem className="tag__item" isNew placeholder="nova tag" value={newTag} onBlur={() => tagInputLostFocus()} onChange={(e) => setNewTag(e.target.value)} onClick={handleAddTag} />
+              {tags.map((tag, index) => {
+                return (
+                  <NoteItem
+                    key={`${index}-${tag}`}
+                    className="tag__item"
+                    value={tag}
+                    onClick={() => handleRemoveTag(tag)}
+                  />
+                );
+              })}
+              <NoteItem
+                className="tag__item"
+                isNew
+                placeholder="nova tag"
+                value={newTag}
+                onBlur={() => tagInputLostFocus()}
+                onChange={(e) => setNewTag(e.target.value)}
+                onClick={handleAddTag}
+              />
             </div>
           </Section>
           <Button label="Salvar" onClick={handleSaveNote} />

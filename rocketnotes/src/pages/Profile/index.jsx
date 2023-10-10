@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FiArrowLeft, FiUser, FiMail, FiLock, FiCamera } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/auth';
 import avatarPlaceholder from '../../assets/avatar_placeholder.svg';
@@ -13,13 +13,16 @@ import { Container, Form, Avatar } from './style';
 
 export function Profile() {
   const { user, updateProfile } = useAuth();
+  const navigate = useNavigate();
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
-  const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+  const avatarUrl = user.avatar
+    ? `${api.defaults.baseURL}/files/${user.avatar}`
+    : avatarPlaceholder;
 
   const [avatar, setAvatar] = useState(avatarUrl);
   const [avatarFile, setAvatarFile] = useState(null);
@@ -46,7 +49,7 @@ export function Profile() {
   return (
     <Container>
       <header>
-        <Link to="/">
+        <Link onClick={() => navigate(-1)}>
           <FiArrowLeft className="back-icon" />
         </Link>
       </header>
@@ -60,12 +63,36 @@ export function Profile() {
         </Avatar>
         <div className="form-group">
           <div>
-            <Input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} icon={FiUser} />
-            <Input type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} icon={FiMail} />
+            <Input
+              type="text"
+              placeholder="Nome"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              icon={FiUser}
+            />
+            <Input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              icon={FiMail}
+            />
           </div>
           <div>
-            <Input type="password" placeholder="Senha antiga" onChange={(e) => setOldPassword(e.target.value)} icon={FiLock} invertReveal />
-            <Input type="password" placeholder="Nova senha" onChange={(e) => setNewPassword(e.target.value)} icon={FiLock} invertReveal />
+            <Input
+              type="password"
+              placeholder="Senha antiga"
+              onChange={(e) => setOldPassword(e.target.value)}
+              icon={FiLock}
+              invertReveal
+            />
+            <Input
+              type="password"
+              placeholder="Nova senha"
+              onChange={(e) => setNewPassword(e.target.value)}
+              icon={FiLock}
+              invertReveal
+            />
           </div>
           <Button label="Alterar" onClick={handleUpdate} />
         </div>
